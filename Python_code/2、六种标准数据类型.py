@@ -1,3 +1,11 @@
+# 数字 字符串（python里面没有单个的字符） 列表 元组 字典 集合
+string1 = '''
+ww
+ee
+tttt
+'''
+print(string1)  # 多行字符串
+
 # print(r'www.abc./dd/ddd')  # 加一个r里面不会发生转义
 
 num1 = 1.0
