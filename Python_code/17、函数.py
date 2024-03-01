@@ -75,6 +75,18 @@ print(func(d=1, c=2, b=3))
 
 # 特殊参数
 # /  *
-abs(x=-9)  # 报错
+# abs(x=-9)  # 报错
 
-# 5、匿名函数（是一个表达式）
+# 5、匿名函数（是一个表达式）,表达式灵活
+func1 = lambda: 'hello world'
+print(func1())   # hello world
+
+def call_func(f):
+    print(f())
+call_func(func1)
+call_func(lambda: 'hello world')
+
+func2 = lambda x, y: x + y
+def call_func2(f, a, b):
+    print(f(a, b))
+call_func2(func2, 1, 2)
