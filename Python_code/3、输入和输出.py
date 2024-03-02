@@ -1,6 +1,6 @@
 # rec = input()  # 先输入再赋值
 # print(rec)
-# rec2 = input('qingshuru:\n')
+rec2 = input('qingshuru:\n')
 
 # print(1, 2, 3, 4)  # 1 2 3 4
 # print(1, 2, 3, 4, sep='-')  # 1-2-3-4
