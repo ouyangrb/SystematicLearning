@@ -57,25 +57,113 @@
 # machine  = timer(machine)
 # machine(2.5)
 
-# 版本2：装饰器（通过函数来实现的）
-import time
+# 版本2：闭包实现装饰器（通过函数来实现的装饰器）
+# # 不带参数的函数装饰器
+# import time
+#
+# def timer(f):
+#     def inner(s):
+#         start = time.time()
+#         f(s)
+#         end = time.time()
+#         print(f'消耗时间{end-start}秒')
+#     return inner
+# '''
+# 当被装饰的函数定义好时，会把它作为实参传递给装饰器来调用，即
+# timer（machine）-->inner
+# machine 再指向 inner
+# '''
+# @timer  # 装饰器函数   可以计算任何一个函数的运行时间
+# def machine(secs):  # 被装饰的函数   函数引用machine会传给timer里面的f
+#     print('设备开始运行')
+#     time.sleep(secs)
+#     print('机器运行结束')
+#
+# machine(2.5)
 
-def timer(f):
-    def inner(s):
-        start = time.time()
-        f(s)
-        end = time.time()
-        print(f'消耗时间{end-start}秒')
-    return inner
-'''
-当被装饰的函数定义好时，会把它作为实参传递给装饰器来调用，即
-timer（machine）-->inner
-machine 再指向 inner
-'''
-@timer  # 装饰器函数   可以计算任何一个函数的运行时间
-def machine(secs):  # 被装饰的函数   函数引用machine会传给timer里面的f
-    print('设备开始运行')
-    time.sleep(secs)
-    print('机器运行结束')
+# # 带参数的函数装饰器
+# import time
+#
+# def timer(name):
+#     def outer(f):
+#         def inner(s):
+#             start = time.time()
+#             f(s)
+#             end = time.time()
+#             print(f'{name}:消耗时间{end-start}秒')
+#         return inner
+#     return outer
+#
+# @timer('主人')  # 装饰器函数   可以计算任何一个函数的运行时间
+# def machine(secs):  # 被装饰的函数   函数引用machine会传给timer里面的f
+#     print('设备开始运行')
+#     time.sleep(secs)
+#     print('机器运行结束')
+# machine(2.5)
 
-machine(2.5)
+# 版本3：类实现装饰器
+# 类装饰器
+# # 不带参数的类装饰器
+# import time
+#
+# class timer:
+#     def __init__(self, f):
+#         self.f = f
+#     def __call__(self, s):
+#         start = time.time()
+#         self.f(s)
+#         end = time.time()
+#         print(f':消耗时间{end - start}秒')
+#
+# # 当被装饰的函数定义好时，会把它作为实参传递给装饰器来调用
+# @timer # 装饰器函数
+# def machine(secs):  # 被装饰的函数,传给f，等价于timer（machine）的实例化
+#     print('设备开始运行')
+#     time.sleep(secs)
+#     print('机器运行结束')
+# machine(2.5)  # 装饰器内部让machine = timer（machine），实例像函数被调用时自动调用__call，
+# #
+
+# # 带参数的类装饰器
+# import time
+#
+# class timer:
+#     def __init__(self, name):
+#         self.name = name
+#     def __call__(self, f):
+#         def inner(s):
+#             start = time.time()
+#             f(s)
+#             end = time.time()
+#             print(f'{self.name}:消耗时间{end-start}秒')
+#         return inner
+#
+# # 当被装饰的函数定义好时，会把它作为实参传递给装饰器来调用
+# '''
+# temp = timer('主人’）
+# inner = temp（machine）
+# machine = inner
+# '''
+# @timer('主人') # 装饰器函数
+# def machine(secs):  # 被装饰的函数,传给f
+#     print('设备开始运行')
+#     time.sleep(secs)
+#     print('机器运行结束')
+# machine(2.5)  # 装饰器内部让machine = timer（machine），实例像函数被调用时自动调用__call，
+
+# @property 装饰器
+class Person:
+    def __init__(self,  name, age):
+        self.name = name
+        self.age = age
+    @property
+    def adult_age(self):
+        return 20  # 相当于加了一个只读属性 self.adult_age = 18
+    def is_adult(self):
+        if self.age >= self.adult_age:
+            print(f'{self.name}恭喜你，已成年')
+        else:
+            print(f'{self.name}恭喜你，未成年，差{self.adult_age-self.age}岁成年')
+p = Person('张三', 19)
+print(p.adult_age)
+p.is_adult()
