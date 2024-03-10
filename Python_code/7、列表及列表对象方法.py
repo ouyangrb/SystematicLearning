@@ -63,7 +63,7 @@ print(lst)  # [9, 8, 4, 3, 1, -2] 降序
 lst.sort(key=abs)  # key是一个函数，排序的值经过函数再觉得排序次序
 print(lst)  # [1, -2, 3, 4, 8, 9]
 
-# 5、sorted(iterable,[key],reverse=Flalse 对可迭代对象进行排序
+# 5、sorted(iterable,[key],reverse=False 对可迭代对象进行排序
 # sort是列表的对象方法，sorted是一个内置函数，可以直接调用
 lst = sorted([9, 5, 6])
 print(lst)  # [5, 6, 9]  新建操作有返回值
