@@ -243,19 +243,29 @@ import numpy as np
 # 3、ndarray.T 转置
 # 4、np.swapaxes(arr, 0, 2) 交换轴
 # 5、np.transpose 既有转置和交换轴的功能，用的较多
-arr = np.array([[1, 2], [3, 4], [5, 6]]).reshape((1, 2, 3))
-print(arr.shape)
-arr1 = np.transpose(arr, (1, 2, 0))
-print(arr1.shape)  # (2, 3, 1)
+# arr = np.array([[1, 2], [3, 4], [5, 6]]).reshape((1, 2, 3))
+# print(arr.shape)
+# arr1 = np.transpose(arr, (1, 2, 0))
+# print(arr1.shape)  # (2, 3, 1)
+#
+# # 6、np.expand_dims 增加1维度，size不会改变，增加维度
+# arr = np.array(8)
+# print(arr.shape)  # () 标量的shape
+# print(np.expand_dims(arr, axis=0).shape)  # (1,) 增加1维
+# print(np.expand_dims(arr, axis=(0, 1)).shape)  # (1, 1) 标量增加2维
+#
+# arr = np.arange(24).reshape((2, 3, 4))
+# print(np.expand_dims(arr, axis=1).shape)  # (2, 1, 3, 4)
+#
+# # 7、np.squeeze() 指定轴删除维度1，或者把维度是1的全部删除，降维
+# # 8、np.concatenate(a1, a2) 拼接 不会考虑广播
+# a = np.array([[1, 2], [3, 4]])
+# b = np.array([[5, 6]])
+# print(np.concatenate((a, b)))
 
-# 6、np.expand_dims 增加1维度，size不会改变，增加维度
-arr = np.array(8)
-print(arr.shape)  # () 标量的shape
-print(np.expand_dims(arr, axis=0).shape)  # (1,) 增加1维
-print(np.expand_dims(arr, axis=(0, 1)).shape)  # (1, 1) 标量增加2维
-
-arr = np.arange(24).reshape((2, 3, 4))
-print(np.expand_dims(arr, axis=1).shape)  # (2, 1, 3, 4)
-
-# 7、np.squeeze() 指定轴删除维度1，或者把维度是1的全部删除，降维
-# 8、np.concatenate(a1, a2) 拼接
+# 9、np.stack 堆叠，增加维度
+# 10、np.hstack 通过第二轴进行拼接 水平堆叠
+# 11、vstack 通过0轴堆叠 垂直堆叠
+# 12、np.repeat 重复
+# np.unique 去重
+# 具体遇到再找课件视频
