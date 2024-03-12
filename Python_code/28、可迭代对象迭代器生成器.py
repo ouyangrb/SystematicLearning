@@ -60,45 +60,45 @@
 
 
 # 示例2：通过__iter__对可迭代对象iterable进行遍历的解释
-# class ListIter:  # 列表迭代器
-#     def __init__(self, obj):  # ListIter(self)中self传给obj
-#         self.obj = obj
-#         self.index = 0
-#     def __iter__(self):
-#         pass
-#     def __next__(self):
-#         try:
-#             ret = self.obj.iterable[self.index]
-#             self.index += 1  # 执行一次，修该一次实例属性self.index = 0
-#             return ret
-#         except IndexError:  # 抛出索引异常
-#             raise StopIteration
-#
-# class Mylist:
-#     def __init__(self, iterable=(), /):
-#         *self.iterable, = iterable
-#     def __str__(self):
-#         return f'{self.iterable}'
-#     def __len__(self):
-#         i =0
-#         for i, _ in enumerate(self.iterable, start=1):
-#             pass
-#         return i
-#     def __iter__(self):
-#         return ListIter(self)  # 返回一个迭代器实例对象
-#     def __getitem__(self, item):
-#         return self.iterable[item]
-#
-#
-# lst = Mylist((1, 2, 3, 4))
+class ListIter:  # 列表迭代器
+    def __init__(self, obj):  # ListIter(self)中self传给obj
+        self.obj = obj
+        self.index = 0
+    def __iter__(self):
+        pass
+    def __next__(self):
+        try:
+            ret = self.obj.iterable[self.index]
+            self.index += 1  # 执行一次，修该一次实例属性self.index = 0
+            return ret
+        except IndexError:  # 抛出索引异常
+            raise StopIteration
+
+class Mylist:
+    def __init__(self, iterable=(), /):
+        *self.iterable, = iterable
+    def __str__(self):
+        return f'{self.iterable}'
+    def __len__(self):
+        i =0
+        for i, _ in enumerate(self.iterable, start=1):
+            pass
+        return i
+    def __iter__(self):
+        return ListIter(self)  # 返回一个迭代器实例对象
+    def __getitem__(self, item):
+        return self.iterable[item]
+
+
+lst = Mylist((1, 2, 3, 4))
 # # 自动机制执行循环,会先调用__iter__方法
 # '''
 # 当对iterable进行迭代时，会先调用__iter__方法，返回一个迭代器对象，然后开始循环，每次循环时都会用该迭代器对象
 # 自动调用__next__方法，该方法的返回值赋值给i，当__next__中抛出stopiteration，for循环处理该异常，循环停止
 # '''
 #
-# # for i in lst:
-# #     print(i)
+for i in lst:
+    print(i)
 #
 # # 手动调用__iter__方法
 # iter_obj = lst.__iter__()  # 等价于这行 iter_obj = iter(lst) iter是内置函数
@@ -213,7 +213,7 @@
 
 
 # iter内置函数 相当于调用__iter__
-lst = [1, 2, 3]
-print(iter(lst))  # 返回一个可迭代对象
+# lst = [1, 2, 3]
+# print(iter(lst))  # 返回一个可迭代对象
 
 # next内置函数 相当于调用__next__
