@@ -24,12 +24,19 @@
 
 
 class ListIter:  # 列表迭代器,迭代器要同时实现__iter__，__next__方法
+
     def __init__(self, iterator):
         self.iterator = iterator
+        self.index = 0
     def __iter__(self):
         pass
     def __next__(self):
-        return self.iterator.iterable[item]
+        try:
+            ret = self.iterator.iterable[self.index]  # self.index 在第一次遍历就到了最大索引位置，第二次就停止迭代
+            self.index += 1  # 执行一次，修该一次实例属性self.index = 0
+            return ret
+        except IndexError:  # 抛出索引异常
+            raise StopIteration
 class Mylist:
     def __init__(self, iterable=(), /):
         *self.iterable, = iterable
