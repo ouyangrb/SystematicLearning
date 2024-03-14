@@ -28,8 +28,8 @@ class DataSet:  # 数据集
 if __name__ == '__main__':
     batch_size = 8
     num_workers = 0
-    train_dataset = DataSet('./datasets/dogcat/training_data', batch_size, True, num_workers)
-    test_dataset = DataSet('./datasets/dogcat/testing_data', batch_size, False, num_workers)
+    train_dataset = DataSet('datasets/dogcat/train', batch_size, True, num_workers)
+    test_dataset = DataSet('datasets/dogcat/test', batch_size, False, num_workers)
     # print(len(train_dataset))  # 1000个图片
     # print(len(test_dataset))  # 400个图片
     for inputs, labels in train_dataset:  # 调用train_dataset实例里面的__iter__方法

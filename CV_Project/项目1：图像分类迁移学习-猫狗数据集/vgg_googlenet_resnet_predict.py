@@ -28,4 +28,4 @@ if __name__ == '__main__':
         print(img.shape)  # [[1, 3, 280, 300] [n c h w]
         r = model(img)
         # print(r)  # 得到1000个类别的概率值
-        print(torch.argmax(r).item())  #找最大的一个
+        print(torch.argmax(r).item())  # 找最大的一个

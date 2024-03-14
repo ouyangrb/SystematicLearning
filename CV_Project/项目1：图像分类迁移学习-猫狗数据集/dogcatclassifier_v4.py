@@ -125,7 +125,7 @@ if __name__ == '__main__':
     googlenet = models.googlenet(weights=GoogLeNet_Weights.IMAGENET1K_V1)
     resnet = models.resnet50(weights=ResNet50_Weights.IMAGENET1K_V1)
 
-    train_data_dir = './datasets/dogcat/training_data'
-    test_data_dir = './datasets/dogcat/testing_data'
+    train_data_dir = 'datasets/dogcat/train'
+    test_data_dir = 'datasets/dogcat/test'
     model = DogCatClassifier_V4(resnet, train_data_dir, test_data_dir)
     model.train()

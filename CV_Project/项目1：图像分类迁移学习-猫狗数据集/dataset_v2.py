@@ -51,8 +51,8 @@ class DataSet_V2:  # 数据集 版本2(对训练数据做了数据增强）
 if __name__ == '__main__':
     batch_size = 8
     num_workers = 0
-    train_dataset = DataSet_V2('./datasets/dogcat/training_data', batch_size, True, num_workers, True)
-    test_dataset = DataSet_V2('./datasets/dogcat/testing_data', batch_size, False, num_workers, False)
+    train_dataset = DataSet_V2('datasets/dogcat/train', batch_size, True, num_workers, True)
+    test_dataset = DataSet_V2('datasets/dogcat/test', batch_size, False, num_workers, False)
     # print(len(train_dataset))
     # print(len(test_dataset))
     # print(len(test_small_dataset))

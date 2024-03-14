@@ -22,7 +22,7 @@ class DogCatClassifier_V5:  # 修改模型
         self.best_acc = 0
         self.train_data_dir = train_data_dir
         self.test_data_dir = test_data_dir
-        self.total_epoch = 50
+        self.total_epoch = 5
         self.lr = 0.005
         self.loss_fn = nn.CrossEntropyLoss()
         self.acc_fn = AccuracyScore()
@@ -122,11 +122,10 @@ class DogCatClassifier_V5:  # 修改模型
 
 
 if __name__ == '__main__':
-    vgg = models.vgg16_bn(weights=VGG16_BN_Weights.IMAGENET1K_V1)
+    # vgg = models.vgg16_bn(weights=VGG16_BN_Weights.IMAGENET1K_V1)
     # googlenet = models.googlenet(weights=GoogLeNet_Weights.IMAGENET1K_V1)
     # resnet = models.resnet50(weights=ResNet50_Weights.IMAGENET1K_V1)
-    resnet = models.resnet18(weights=ResNet18_Weights.IMAGENET1K_V1)
-    # resnet18 = models.resnet18()
+    resnet18 = models.resnet18(weights=ResNet18_Weights.IMAGENET1K_V1)
 
     # 1、示例：更改vgg
     # vgg.classifier[3] = nn.Linear(in_features=4096, out_features=1024, bias=True)
@@ -135,8 +134,8 @@ if __name__ == '__main__':
 
     # googlenet.fc = nn.Linear(in_features=1024, out_features=2, bias=True)
     # resnet.fc = nn.Linear(in_features=2048, out_features=2, bias=True)
-    # resnet.fc = nn.Linear(in_features=512, out_features=2, bias=True)
-    # print(resnet)
+    resnet18.fc = nn.Linear(in_features=512, out_features=2, bias=True)
+    print(resnet18)
 
     # 更多修改模型的示例：
     # del vgg.classifier[5]  # 删除classifier模块的某一层
@@ -146,7 +145,7 @@ if __name__ == '__main__':
     # vgg.features[0].weight.requires_grad = False  # 某一层的参数冻结
     # print(vgg)
 
-    # train_data_dir = './datasets/dogcat/train'
-    # test_data_dir = './datasets/dogcat/test'
-    # model = DogCatClassifier_V5(resnet, train_data_dir, test_data_dir)
-    # model.train()
+    train_data_dir = './datasets/dogcat/train'
+    test_data_dir = './datasets/dogcat/test'
+    model = DogCatClassifier_V5(resnet18, train_data_dir, test_data_dir)
+    model.train()
