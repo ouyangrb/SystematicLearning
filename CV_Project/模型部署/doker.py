@@ -1,3 +1,4 @@
+# 0、初始docker
 '''
 1、安装docker desktop 安装在c盘
 2、用windows powershell 执行命令，比如 docker images（查看镜像）
@@ -12,38 +13,18 @@
     比如：dochker pull ubantu:20.04 从官方仓库下载下来，到本地服务区（docher引擎）
     仓库有两种，public（公用的比如阿里的可以申请）private（公司内部的）
 
-6、安装docher: 打开任何东西都以管理员身份
-  0、下载安装包：https://www.docker.com/get-started/
-  1、https://www.bilibili.com/video/BV1zh411F7wv/?vd_source=71b562c55a1f2434bcb1fbc0d34a66b0 安装教程
-  2、出现 docker desktop-unexpected wsl error 解决方法如下：
-  右键开始菜单。在桌面左下角开始按钮上右键单击，选择“Windows PowerShell”或“Windows PowerShell (管理员)”来打开PowerShell
-  3、打开微软商城，下载ubantu 20.04.LTS
   4、重新打开docker，按照老师的教程安装
-
-  docker run -it -v d:/dockerv:/localfiles -p 8088:8080 -p 22:22 ubuntu:20.04
-
 '''
+
+# 1、安装vim文件编辑器
 '''
-docker -v
-docker images
-docker run -it ubuntu:20.04  启动一个镜像得到一个容器
-exit  从root退出
-docker run -it -v e:/ceshi:/localfiles -p 22:22 ubuntu:20.04 创建一个容器，并把本地文件移进去
-
-cd /localfiles/ 进入这个文件
-cd  退出这个文件
-
-docker rename clever_snyder mycontainer  修改容器名称
-docker ps命令来查看正在运行的容器列表
-docker exec -it 2059296427ac /bin/bash 进入到容器
-
 apt update
 apt install vim -y
-
-
+apt update
 '''
+
+# 2、配置ssh容器步骤：
 '''
-配置容器步骤：
 1、  docker run -it --name test1 --gpus all -v d:/dockerv1:/localfiles1 -p 22:22 -p 8080:8080 ubuntu:20.04  创建带有端口号的容器
 exit----退出
 
@@ -78,14 +59,110 @@ PermitRootLogin yes
 10、service ssh status  
 '''
 
+# 3、配置tomcat，看视频及课件
+# 4、安装编译环境，make配置
 '''
-linex命令：
-ps -ef 显示进程
+apt install g++ gcc make cmake 
+
+vim main.cpp:
+
+#include <iostream>
+using namespace std;
+extern int add(int,int);
+extern int substract(int,int);
+int main(){
+        cout<<"hello"<<endl;
+        int a=90;
+        int b=10;
+        cout<<add(a,b)<<","<<substract(a,b)<<endl;
+        return 0;
+}
+
+vim functions.cpp:
+
+int add(int a,int b){
+        return a+b;
+}
+int substract(int a,int b){
+        return a-b;
+}
+
+vim makefile:
+
+GCC = g++
+CFLAGS = -Wall
+all: program
+program: main.o functions.o
+        $(GCC) $(CFLAGS) -o program main.o functions.o
+main.o: main.cpp
+        $(GCC) $(CFLAGS) -c main.cpp
+functions.o: functions.cpp
+        $(GCC) $(CFLAGS) -c functions.cpp
+clean:
+        rm -f *.o program
+        
+cat makefile 本界面查看文件内容
+
+vim ~/.bashrc  打开配置文件，改成如下：
+export PATH=$JAVA_HOME/bin:$CATALINA_HOME/bin:.:$PATH
+
+source ~/.bashrc  更新配置
+make /make all
+
+touch main.cpp 没有mian.cpp文件就创建，有就更新
+make clean  #rm -f *.o program 删除所有的.o文件和program ,除了clean可以创建多个命令
+cp makefile makefile1  拷贝另外一个make文件
+make -f makefile1  和makefile一样的效果
 '''
+# 5、安装编译环境，cmake配置
 '''
-docker命令：
-dockers ps 显示正在running的容器
-docker ps -a 显示所有的容器
-docker commit 56298c4f4d13 my_ubuntu2004_sshserver:v1  容器保存成一个镜像
-docker run -it -v d:/dockerv:/localfiles -p 80:8080 -p 22:22 --name mywebserver my_ubuntu2004_sshserver:v1   web镜像
+#cmake配置：
+mkdir demo  创建demo文件夹
+cd demo
+
+vim add.cpp:
+int add(int a,int b){
+        return a+b;
+}
+
+vim sub.cpp:
+int add(int a,int b){
+        return a-b;
+}
+
+vim main.cpp:
+#include <stdio.h>
+#include "head.h"
+
+int main(){
+        int a=20;
+        int b=12;
+        printf("a=%d,b=%d\n",a,b);
+        printf("a+b=%d\n",add(a,b));
+        printf("a-b=%d\n",sub(a,b));
+        return 0;
+}
+
+vim head.h:
+#ifndef _HEAD_H
+#define _HEAD_H
+
+int add(int a, int b);
+int sub(int a, int b);
+
+#endif
+
+# g++ *.cpp -o app 一条命令生成可执行文件，用cmake生成可执行程序方法如下：
+
+vim CMakeLists.txt  创建文件：
+# specify the minimum cmake version
+cmake_minimum_required(VERSION 3.10)
+# set the project name
+project(CALC)
+# add the executable
+add_executable(app main.cpp add.cpp sub.cpp)
+
+cmake .  #.表示CMakeLists.txt 文件所在路径 此时生成Makefile文件
+make  #再make（用的就是Makefile文件），就生成可执行文件app  #当app main.cpp add.cpp sub.cpp发生改变就要cmake
+
 '''
