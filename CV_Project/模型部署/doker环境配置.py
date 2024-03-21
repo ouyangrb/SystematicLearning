@@ -121,12 +121,16 @@ mkdir demo  创建demo文件夹
 cd demo
 
 vim add.cpp:
+#include <stdio.h>
+#include "head.h"
 int add(int a,int b){
         return a+b;
 }
 
 vim sub.cpp:
-int add(int a,int b){
+#include <stdio.h>
+#include "head.h"
+int sub(int a,int b){
         return a-b;
 }
 
@@ -152,17 +156,34 @@ int sub(int a, int b);
 
 #endif
 
-# g++ *.cpp -o app 一条命令生成可执行文件，用cmake生成可执行程序方法如下：
+# g++ *.cpp -o app 一条命令生成可执行文件，一般用cmake生成可执行程序方法如下：
 
 vim CMakeLists.txt  创建文件：
+
+
 # specify the minimum cmake version
-cmake_minimum_required(VERSION 3.10)
+cmake_minimum_required(VERSION 3.10)        
 # set the project name
 project(CALC)
+
+set(CMAKE_CXX_STANDARD 14)                # 指定版本   
+
+set(SRC_LIST main.cpp;add.cpp;sub.cpp)    # 宏替代
+
+set(HOME /root)
+set(EXECUTABLE_OUTPUT_PATH ${HOME}/bin)   # 生产的app所在路径
+
 # add the executable
-add_executable(app main.cpp add.cpp sub.cpp)
+add_executable(app ${SRC_LIST})
 
-cmake .  #.表示CMakeLists.txt 文件所在路径 此时生成Makefile文件
+
+mkdir build   编译好的文件放在build
+cd build
+cmake ..  #.表示CMakeLists.txt 文件所在路径 此时生成Makefile文件
 make  #再make（用的就是Makefile文件），就生成可执行文件app  #当app main.cpp add.cpp sub.cpp发生改变就要cmake
+cd .. 返回上一级目录
 
+mkdir src
+mv *.cpp src   所有的待编译文件放在src文件夹
+mv *.h src
 '''
