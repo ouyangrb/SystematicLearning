@@ -18,4 +18,7 @@ ps -ef 显示进程
 
 history 查看历史敲击命令记录
 
+cd ~ 到root下
+cd - 到root/bin 下
+cd / 到根路径
 '''
