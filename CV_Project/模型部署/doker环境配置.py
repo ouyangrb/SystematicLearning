@@ -187,3 +187,23 @@ mkdir src
 mv *.cpp src   所有的待编译文件放在src文件夹
 mv *.h src
 '''
+# 6、apt安装opencv
+'''
+docker exec -it deb9db6ea3fe /bin/bash  进入到容器
+apt update
+apt install python3-opencv 安装opencv的python库
+apt update
+apt install libopencv-dev -y  安装opencv的c++库
+find / -name opencv4.pc 查看文件是否在 /usr/lib/x86_64-linux-gnu/pkgconfig 文件夹下。
+pkg-config --cflags --libs opencv4  查看里面包含的头文件和库文件
+
+
+cmake_minimum_required(VERSION 3.0)
+project(TEST)
+file(GLOB SRC_LIST ${CMAKE_CURRENT_SOURCE_DIR}/*.cpp)
+find_package(OpenCV REQUIRED)
+include_directories(${OpenCV_INCLUDE_DIRS})
+add_executable(app ${SRC_LIST})
+target_link_libraries(app ${OpenCV_LIBS})                                                                                                                ~                                          
+
+'''

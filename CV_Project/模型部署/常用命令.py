@@ -21,4 +21,6 @@ history 查看历史敲击命令记录
 cd ~ 到root下
 cd - 到root/bin 下
 cd / 到根路径
+
+PS C:\Users\ouyangzhaoxing> docker cp D:\cat.117.jpg test2:/demo3/  从D盘拷贝东西到容器
 '''
