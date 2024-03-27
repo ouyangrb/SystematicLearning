@@ -197,7 +197,7 @@ apt install libopencv-dev -y  安装opencv的c++库
 find / -name opencv4.pc 查看文件是否在 /usr/lib/x86_64-linux-gnu/pkgconfig 文件夹下。
 pkg-config --cflags --libs opencv4  查看里面包含的头文件和库文件
 
-
+CMakeLists.txt文件示例如下：
 cmake_minimum_required(VERSION 3.0)
 project(TEST)
 file(GLOB SRC_LIST ${CMAKE_CURRENT_SOURCE_DIR}/*.cpp)
